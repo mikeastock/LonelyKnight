@@ -1,13 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import Knight from './Knight';
 import Square from './Square';
+import { canMoveKnight, moveKnight } from './Game';
 
 export default class Board extends Component {
   static propTypes = {
     knightPosition: PropTypes.arrayOf(
       PropTypes.number.isRequired
     ).isRequired
-  };
+  }
 
   renderSquare(i) {
     const x = i % 8;
@@ -21,13 +22,20 @@ export default class Board extends Component {
 
     return (
       <div key={i}
-           style={{ width: '12.5%', height: '12.5%' }}>
+           style={{ width: '12.5%', height: '12.5%' }}
+           onClick={() => this.handleSquareClick(x, y)}>
         <Square black={black}>
           {piece}
         </Square>
       </div>
     );
-  };
+  }
+
+  handleSquareClick(toX, toY) {
+    if (canMoveKnight(toX, toY)) {
+      moveKnight(toX, toY);
+    }
+  }
 
   render() {
     const squares = [];

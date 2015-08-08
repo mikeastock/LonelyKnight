@@ -1,4 +1,12 @@
 import React from 'react';
-import App from './App';
+import Board from './Board';
+import { observe } from './Game';
 
-React.render(<App />, document.getElementById('root'));
+const rootEl = document.getElementById('root');
+
+observe(knightPosition =>
+  React.render(
+    <Board knightPosition={knightPosition}/>,
+    rootEl
+  )
+);
